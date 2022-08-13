@@ -14,14 +14,15 @@ import org.springframework.jms.core.JmsTemplate;
 
 @Configuration
 public class JMSConfiguration {
+	
 	@Value("${spring.activemq.broker-url}")
 	private String brokerUrl;
 
-	@Bean("connectionFactory")
+	@Bean("jmsConnectionFactory")
 	JmsListenerContainerFactory jmsConnectionFactory(ConnectionFactory connectionFactory,DefaultJmsListenerContainerFactoryConfigurer configurer) {
 		
 		DefaultJmsListenerContainerFactory factory=new DefaultJmsListenerContainerFactory();
-		confihttps://github.com/sushmasunku05/myrepo.gitgurer.configure(factory, connectionFactory);
+		configurer.configure(factory, connectionFactory);
 		return factory;
 	}
 	
@@ -29,6 +30,7 @@ public class JMSConfiguration {
 	ConnectionFactory connectionFactory() {
 		ActiveMQConnectionFactory activeMQConnectionFactory=new ActiveMQConnectionFactory();
 		activeMQConnectionFactory.setBrokerURL(brokerUrl);
+		activeMQConnectionFactory.setTrustAllPackages(true);
 		return activeMQConnectionFactory;
 	}
 	

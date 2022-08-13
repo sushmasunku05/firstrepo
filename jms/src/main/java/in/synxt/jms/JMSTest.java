@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service("JMSTest")
 public class JMSTest {
+	
 	@Autowired
 	private JmsTemplate jmsTemplate;
 
@@ -17,7 +18,7 @@ public class JMSTest {
 		this.jmsTemplate = jmsTemplate;
 	}
 	
-	public void sendMsg(String queueName,String message) {
+	public void sendMsg(String queueName,Object message) {
 		jmsTemplate.convertAndSend(queueName,message);
 	}
 }
